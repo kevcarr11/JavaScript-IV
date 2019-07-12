@@ -28,7 +28,19 @@ class Instructor extends Person {
     grade(student, subject) {
         console.log(`${student} receives a perfect score on ${subject}`);
     };
-}
+    // Stretch Method //
+    
+    adjustGrade(student) {
+        let points = Math.round(Math.random() * 100);
+        if (student.grade >= 100) {
+            student.grade -= points;
+            console.log(`${points} points are subtracted from ${student.name}'s grade. ${student.name}'s current grade is ${student.grade}`);
+        } else {
+            student.grade += points;
+            console.log(`${points} points are added to ${student.name}'s grade. ${student.name}'s current grade is ${student.grade}`);
+        };
+    };
+};
 
 class Student extends Person {
     constructor(studentAttrs) {
@@ -36,6 +48,7 @@ class Student extends Person {
         this.previousBackground = studentAttrs.previousBackground;
         this.className = studentAttrs.className;
         this.favSubjects = studentAttrs.favSubjects;
+        this.grade = studentAttrs.grade;
     };
     listsSubjects() {
         this.favSubjects.forEach(element => {
@@ -47,6 +60,17 @@ class Student extends Person {
     };
     sprintChallenge(student, subject) {
         console.log(`${student} has begun sprint challenge on ${subject}`);
+    };
+    // Stretch Method 
+
+    graduate() {
+        if (this.grade >= 70) {
+            console.log(`${this.name} has graduated with a final grade of ${this.grade}!`); 
+        } else {
+            let diff = 70 - this.grade;
+            this.grade += diff;
+            console.log(`After more grading, ${diff} points were earned and ${this.name} has graduated with a final grade of ${this.grade}!`);
+        };
     };
 };
 
@@ -78,10 +102,11 @@ const keiran = new Instructor({
 const kevin = new Student ({
     name: 'Kevin',
     age: 26,
-    location: 'Austin, TX',
+    location: 'Stowell, TX',
     previousBackground: 'Construction',
     className: 'Webpt8',
     favSubjects: ['HTML', 'CSS', 'JavaScript'],
+    grade: 100,
 });
 
 const chris = new TeamLead ({
@@ -105,3 +130,7 @@ kevin.prAssignment('Kevin', 'JavaScript');
 kevin.sprintChallenge('Kevin','JavaScript');
 chris.standup('Chris', 'WebPt8_chris');
 chris.debugsCode('Chris', 'Kevin','JavaScript');
+console.log(chris.catchPhrase);
+// Stretch logs 
+chris.adjustGrade(kevin);
+kevin.graduate();
